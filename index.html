@@ -44,10 +44,16 @@
  
     <!-- main -->
     <div class="main">
-        <div class="screen">
-            <!-- start screen -->
-            <div class="start-screen" id="start-screen">
-                <input type="text" placeholder="Your name!" maxlength="7" class="input-name" id="input-name">
+        <div class="console-case">
+            <div class="speaker-grill">
+                <span></span><span></span><span></span>
+            </div>
+
+            <div class="screen-bezel">
+                <div class="screen">
+                    <!-- start screen -->
+                    <div class="start-screen" id="start-screen">
+                        <input type="text" placeholder="Your name!" maxlength="7" class="input-name" id="input-name">
                 <div class="btn" id="btn-level">
                     Easy
                 </div>
@@ -55,7 +61,9 @@
                 <div class="btn btn-blue" id="btn-play">New Game</div>
             </div>
             <!-- end start screen -->
-            <div class="main-game">
+            
+            <!-- game screen -->
+            <div class="main-game" id="game-screen">
                 <div class="main-sudoku-grid">
                     <!-- 81 cells for game board -->
                     <div class="main-grid-cell"></div>
@@ -171,8 +179,14 @@
                     <div class="number delete" id="btn-delete">X</div>
                 </div>
             </div>
-            <!-- game screen -->
-             
+
+            <div class="physical-buttons">
+                <div class="d-pad"></div>
+                <div class="action-btns">
+                    <div class="a-btn"></div>
+                    <div class="b-btn"></div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- end main -->
