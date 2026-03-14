@@ -28,24 +28,12 @@
 </head>
 
 <body>
-    <!-- top nav -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                sudoku
-            </a>
-            <div class="dark-mode-toggle" id="dark-mode-toggle">
-                <i class="bx bx-sun"></i>
-                <i class="bx bx-moon"></i>
-            </div>
-        </div>
-    </nav>
-    <!-- end nav -->
  
     <!-- main -->
     <div class="main">
-        <div class="screen">
-            <!-- start screen -->
+        <div class="console-case">
+            <div class="screen">
+                <!-- start screen -->
             <div class="start-screen" id="start-screen">
                 <input type="text" placeholder="Your name!" maxlength="7" class="input-name" id="input-name">
                 <div class="btn" id="btn-level">
@@ -60,6 +48,7 @@
             <div class="main-game" id="game-screen">
                 <header class="game-header">
                     <div class="game-title">SUDOKU</div>
+
                     <div class="game-status">
                         <div class="status-item">
                             <span class="label">Difficulty</span>
@@ -70,10 +59,24 @@
                             <span id="game-time" class="value">00:00</span>
                         </div>
                     </div>
+
+                    <div class="game-actions">
+                        <div class="btn btn-blue" id="btn-new-game">New Game</div>
+                        <div class="btn" id="btn-solve">Solve</div>
+                        <div class="btn" id="dark-mode-toggle">
+                            <i class="bx bx-sun"></i>
+                            <i class="bx bx-moon"></i>
+                        </div>
+                    </div>
                 </header>
 
                 <div class="game-body">
-                    <div class="main-sudoku-grid">
+                    <div class="music-player">
+                        <div class="music-title">Music</div>
+                        <div class="music-description">Cozy playlist coming soon.</div>
+                    </div>
+                    <div class="board-wrapper">
+                        <div class="main-sudoku-grid">
                         <!-- 81 cells for game board -->
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
@@ -171,13 +174,16 @@
                         <div class="number delete" id="btn-delete">X</div>
                     </div>
                 </div>
+                <!-- end board-wrapper -->
             </div>
             <!-- end of game screen -->
         </div>
         <!-- end of screen -->
+        </div>
+        <!-- end of console-case -->
     </div>
     <!-- end main -->
-     
+
     <script src="JavaScript/constant.js"></script>
     <script src="JavaScript/sudoku.js"></script>
 </body>
