@@ -1,79 +1,20 @@
-<!DOCTYPE html>
-<html lang = "en">
-
-<head>
-    <meta charset = "UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- mobile status bar -->
-     <meta name="theme-color" content="#fff">
-
-    <title>Sudoku</title>
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    
-    <!-- Basic Icons -->
-    <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
-    <!-- Filled Icons -->
-    <link href="https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css" rel="stylesheet">
-    <!-- Brand Icons -->
-    <link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">
-    
-    <!-- style sheet -->
-    <link rel="stylesheet" href="Resources/style.css">
-
-    
-</head>
-
-<body>
-    <!-- top nav -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                sudoku
-            </a>
-            <div class="dark-mode-toggle" id="dark-mode-toggle">
-                <i class="bx bx-sun"></i>
-                <i class="bx bx-moon"></i>
-            </div>
-        </div>
-    </nav>
-    <!-- end nav -->
- 
-    <!-- main -->
-    <div class="main">
-        <div class="screen">
-            <!-- start screen -->
-            <div class="start-screen" id="start-screen">
-                <input type="text" placeholder="Your name!" maxlength="7" class="input-name" id="input-name">
-                <div class="btn" id="btn-level">
-                    Easy
-                </div>
-                <div class="btn" id="btn-continue">Continue</div>
-                <div class="btn btn-blue" id="btn-play">New Game</div>
-            </div>
-            <!-- end start screen -->
-
-            <!-- game screen -->
-            <div class="main-game" id="game-screen">
-                <header class="game-header">
-                    <div class="game-title">SUDOKU</div>
-                    <div class="game-status">
-                        <div class="status-item">
-                            <span class="label">Difficulty</span>
-                            <span id="game-level" class="value">Easy</span>
+<div class="main-game" id="game-screen">
+                    <header class="game-header">
+                        <div class="game-title">SUDOKU</div>
+                        <div class="game-status">
+                            <div class="status-item">
+                                <span class="label">Difficulty</span>
+                                <span id="game-level" class="value">Easy</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="label">Time</span>
+                                <span id="game-time" class="value">00:00</span>
+                            </div>
                         </div>
-                        <div class="status-item">
-                            <span class="label">Time</span>
-                            <span id="game-time" class="value">00:00</span>
-                        </div>
-                    </div>
-                </header>
+                    </header>
 
-                <div class="game-body">
-                    <div class="main-sudoku-grid">
+                    <div class="game-body">
+                        <div class="main-sudoku-grid">
                         <!-- 81 cells for game board -->
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
@@ -171,17 +112,5 @@
                         <div class="number delete" id="btn-delete">X</div>
                     </div>
                 </div>
+            <!-- end of screen -->
             </div>
-            <!-- end of game screen -->
-        </div>
-        <!-- end of screen -->
-    </div>
-    <!-- end main -->
-     
-    <script src="JavaScript/constant.js"></script>
-    <script src="JavaScript/sudoku.js"></script>
-</body>
-
-
-
-</html>
