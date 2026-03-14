@@ -9,8 +9,10 @@
     --blue: #00aeef;
     --red: #e91e63;
     --black: #000;
-
+    /* 
+    
     --nav-size: clamp(40px, 8vh, 60px);
+    */
     --sudoku-cell-size: clamp(35px, 6vw, 55px);
 
     --border-radius: 10px;
@@ -119,11 +121,13 @@ nav {
 }
 
 .main{
+    /* 
     min-height: calc(100vh - var(--nav-size));
     padding-top: var(--nav-size);
+    */
     display: grid;
     place-items: center;
-    background: linear-gradient(135deg, #8b4513 0%, #daa520 50%, #8b4513 100%);
+    /* background: linear-gradient(135deg, #8b4513 0%, #daa520 50%, #8b4513 100%); */
 }
 
 .screen {
@@ -131,47 +135,26 @@ nav {
     border-radius: 5px;
     padding: 10px;
     min-height: 400px;
-    position: relative;
+    position: fixed;
     overflow: visible;
     width: 100%;
-    max-width: 400px;
+    max-width: 80%;
 }
 
+/* The Main Plastic Body */
 .console-case {
-    background: linear-gradient(145deg, #654321 0%, #8b4513 50%, #654321 100%);
-    border: 4px solid #2f1b14;
-    border-radius: 20px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.3);
-    padding: 20px;
+    background-color: #d2b48c; /* Tan/Wood retro plastic */
+    padding: 30px 20px;
+    border: 6px solid #322125; /* Dark chunky outline */
+    border-radius: 25px;
+    box-shadow: 
+        inset -8px -8px 0px #8f563b, /* Darker plastic shadow */
+        inset 8px 8px 0px #f4d29c,   /* Lighter plastic highlight */
+        10px 10px 0px rgba(0,0,0,0.1); /* Soft drop shadow on the table */
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 500px;
-    width: 100%;
-}
-
-.speaker-grill {
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-bottom: 20px;
-}
-
-.speaker-grill span {
-    width: 20px;
-    height: 20px;
-    background: radial-gradient(circle, #000 0%, #333 70%, #000 100%);
-    border-radius: 50%;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
-}
-
-.screen-bezel {
-    background: #000;
-    border: 6px solid #333;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-    margin-bottom: 20px;
+    position: fixed;
 }
 
 .start-screen{
