@@ -19,12 +19,10 @@ let level = CONSTANT.LEVEL[level_index];
 const getGameInfo = () => JSON.parse(localStorage.getItem('game'));
 
 const initialize = () => {
-    const darkmode = JSON.parse(localStorage.getItem('darkmode') || 'false');
-    document.body.classList.add(darkmode ? 'dark' : 'light');
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', darkmode ? '#1a1a2e' : '#fff');
-    
-    const game = getGameInfo();
+    const theme = localStorage.getItem('theme') || 'light';
+    applyTheme(theme);
 
+    const game = getGameInfo();
     showStartScreen();
     //if (game) {
     //    showGameScreen();
@@ -32,9 +30,38 @@ const initialize = () => {
     //    showStartScreen();
     //}
 
-    document.querySelector('#btn-continue').style.display = game ? 'grid' : 'none';
+    const continueBtn = document.querySelector('#btn-continue');
+    if (continueBtn) continueBtn.style.display = game ? 'grid' : 'none';
 
     initializeGameGrid();
+}
+
+const applyTheme = (theme) => {
+    document.body.classList.remove('dark','blueberry', 'sage', 'matcha', 'pink', 'honey', 'lavender', 'polar'); 
+    
+    if (theme !== 'light') {
+        document.body.classList.add(theme);
+    }
+
+    localStorage.setItem('theme', theme);
+
+    // metadata color map for mobile browsers
+    const metaColors = {
+        'light': '#f5ebe0',
+        'dark': '#1e1e2e',
+        'blueberry': '#1a1c2c',
+        'sage': '#f1f7ed',
+        'matcha': '#e2efc7',
+        'pink': '#fff1f2',
+        'honey': '#fff9ec',
+        'lavender': '#f3f0ff',
+        'polar': '#e0f2f1'
+    };
+
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+        metaTheme.setAttribute('content', metaColors[theme] || '#f5ebe0');
+    }
 }
 
 // add spacing between the 3x3 boxes in the sudoku grid
@@ -81,14 +108,25 @@ document.querySelector('#btn-continue').addEventListener('click', () => {
 });
 
 // handle theme toggle
-document.querySelector('#dark-mode-toggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    const isDarkMode = document.body.classList.contains('dark');
-    localStorage.setItem('darkmode', isDarkMode);
+document.querySelectorAll('#theme-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        const themeMenu = e.target.parentNode.querySelector('#theme-menu');
+        themeMenu.classList.toggle('active');
+    });
+});
 
-    // change mobile status bar color
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', isDarkMode ? '#1a1a2e' : '#fff');
-})
+// handle theme selection
+document.querySelectorAll('.theme-opt').forEach(option => {
+    option.addEventListener('click', () => {
+        const theme = option.getAttribute('data-theme');
+        applyTheme(theme);
+
+        // close the menu after selection
+        document.querySelectorAll('#theme-menu').forEach(menu => {
+            menu.classList.remove('active', 'show');
+        });
+    });
+});
 
 // show screen methods
 const showStartScreen = () => {

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 
 <head>
     <meta charset = "UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- mobile status bar -->
-     <meta name="theme-color" content="#fff">
+    <meta name="theme-color" content="#fff">
 
     <title>Sudoku</title>
     <!-- Font -->
@@ -24,60 +24,107 @@
     <!-- style sheet -->
     <link rel="stylesheet" href="Resources/style.css">
 
-    
 </head>
 
 <body>
- 
+
     <!-- main -->
     <div class="main">
-        <div class="console-case">
-            <div class="screen">
-                <!-- start screen -->
+        <div class="screen">
+
+            <!-- start screen -->
             <div class="start-screen" id="start-screen">
-                <input type="text" placeholder="Your name!" maxlength="7" class="input-name" id="input-name">
-                <div class="btn" id="btn-level">
-                    Easy
+
+                <!-- start header -->
+                <header class="start-header">
+                    <div class="header-left">
+                        <h1 class="logo">SUDOKU</h1>
+                    </div>
+
+                    <div class="header-right">
+                        <div class="theme-dropdown">
+                            <button class="pixel-btn" id="theme-toggle">Theme ▼</button>
+                            <div class="theme-menu" id="theme-menu">
+                                <div class="theme-opt" data-theme="light">Latte (Default)</div>
+                                <div class="theme-opt" data-theme="dark">Mocha</div>
+                                <div class="theme-opt" data-theme="blueberry">Blueberry</div>
+                                <div class="theme-opt" data-theme="sage">Sage</div>
+                                <div class="theme-opt" data-theme="matcha">Matcha</div>
+                                <div class="theme-opt" data-theme="pink">Strawberry</div>
+                                <div class="theme-opt" data-theme="honey">Honey</div>
+                                <div class="theme-opt" data-theme="lavender">Lavender</div>
+                                <div class="theme-opt" data-theme="polar">Polar</div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <!-- end header -->
+                <div class="start-input-box">
+                    <input type="text" placeholder="Your name" maxlength="8" class="input-name" id="input-name">
+                    <div class="btn" id="btn-level">Easy</div>
+                    <div class="btn" id="btn-continue">Continue</div>
+                    <div class="btn btn-blue" id="btn-play">New game</div>
                 </div>
-                <div class="btn" id="btn-continue">Continue</div>
-                <div class="btn btn-blue" id="btn-play">New Game</div>
+                
             </div>
             <!-- end start screen -->
 
             <!-- game screen -->
             <div class="main-game" id="game-screen">
+                
+                <!-- start header -->
                 <header class="game-header">
-                    <div class="game-title">SUDOKU</div>
-
-                    <div class="game-status">
-                        <div class="status-item">
-                            <span class="label">Difficulty</span>
-                            <span id="game-level" class="value">Easy</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="label">Time</span>
-                            <span id="game-time" class="value">00:00</span>
-                        </div>
+                    <div class="header-left">
+                        <h1 class="logo">SUDOKU</h1>
+                    </div>
+                
+                    <div class="header-center">
+                        <div class="status-item">DIFFICULTY: <span id="game-level">EASY</span></div>
+                        <div class="status-item">TIME: <span id="game-time">00:00</span></div>
+                        <button class="icon-btn" id="btn-pause"><i class="bx bx-pause"></i></button>
                     </div>
 
-                    <div class="game-actions">
-                        <div class="btn btn-blue" id="btn-new-game">New Game</div>
-                        <div class="btn" id="btn-solve">Solve</div>
-                        <div class="btn" id="dark-mode-toggle">
-                            <i class="bx bx-sun"></i>
-                            <i class="bx bx-moon"></i>
+                    <div class="header-right">
+                        <button class="pixel-btn">NEW GAME</button>
+                        <button class="pixel-btn">SOLVE</button>
+                        <div class="theme-dropdown">
+                            <button class="pixel-btn" id="theme-toggle">Theme ▼</button>
+                            <div class="theme-menu" id="theme-menu">
+                                <div class="theme-opt" data-theme="light">Latte (Default)</div>
+                                <div class="theme-opt" data-theme="dark">Mocha</div>
+                                <div class="theme-opt" data-theme="blueberry">Blueberry</div>
+                                <div class="theme-opt" data-theme="sage">Sage</div>
+                                <div class="theme-opt" data-theme="matcha">Matcha</div>
+                                <div class="theme-opt" data-theme="pink">Strawberry</div>
+                                <div class="theme-opt" data-theme="honey">Honey</div>
+                                <div class="theme-opt" data-theme="lavender">Lavender</div>
+                                <div class="theme-opt" data-theme="polar">Polar</div>
+                            </div>
                         </div>
                     </div>
                 </header>
+                <!-- end header -->
 
-                <div class="game-body">
-                    <div class="music-player">
-                        <div class="music-title">Music</div>
-                        <div class="music-description">Cozy playlist coming soon.</div>
-                    </div>
-                    <div class="board-wrapper">
+                <!-- start game content wrapper -->
+                <div class="game-content-wrapper">
+                    <!-- start left panel -->
+                    <aside class="side-panel music-panel">
+                        <div class="panel-label">MUSIC</div>
+                        <div class="music-panel-controls">
+                            <div class="cat-display">🐱</div>
+                            <div class="music-controls">
+                                <button class="mini-btn"><i class='bx bx-skip-previous'></i></button>
+                                <button class="mini-btn"><i class='bx bx-pause'></i></button>
+                                <button class="mini-btn"><i class='bx bx-skip-next'></i></button>
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- end left panel -->
+
+                    <!-- start sudoku container -->
+                    <section class="sudoku-container">
                         <div class="main-sudoku-grid">
-                        <!-- 81 cells for game board -->
+                        <!-- 81 cells -->
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
@@ -159,35 +206,31 @@
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
                         <div class="main-grid-cell"></div>
-                    </div>
+                        </div>
+                    </section>
+                    <!-- end sudoku container -->
 
-                    <div class="numbers">
-                        <div class="number">1</div>
-                        <div class="number">2</div>
-                        <div class="number">3</div>
-                        <div class="number">4</div>
-                        <div class="number">5</div>
-                        <div class="number">6</div>
-                        <div class="number">7</div>
-                        <div class="number">8</div>
-                        <div class="number">9</div>
-                        <div class="number delete" id="btn-delete">X</div>
-                    </div>
+                    <!-- start right panel -->
+                    <aside class="side-panel number-panel">
+                        <div class="panel-label">INPUT</div>
+                        <div class="number-grid">
+                            <div class="number">1</div> <div class="number">6</div>
+                            <div class="number">2</div> <div class="number">7</div>
+                            <div class="number">3</div> <div class="number">8</div>
+                            <div class="number">4</div> <div class="number">9</div>
+                            <div class="number">5</div> <div class="number delete">X</div>
+                        </div>
+                    </aside>
+                    <!-- end right panel -->
                 </div>
-                <!-- end board-wrapper -->
+                <!-- end game content wrapper -->
             </div>
-            <!-- end of game screen -->
+            <!-- end game screen -->
         </div>
-        <!-- end of screen -->
-        </div>
-        <!-- end of console-case -->
     </div>
     <!-- end main -->
-
-    <script src="JavaScript/constant.js"></script>
-    <script src="JavaScript/sudoku.js"></script>
+    <script src="/JavaScript/constant.js"></script>
+    <script src="/JavaScript/sudoku.js"></script>
 </body>
-
-
 
 </html>
