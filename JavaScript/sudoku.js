@@ -3,6 +3,7 @@
 // screens
 const start_screen = document.querySelector('#start-screen'); 
 const game_screen = document.querySelector('#game-screen');
+const pause_screen = document.querySelector('#pause-screen');
 
 let cells = document.querySelectorAll('.main-grid-cell');
 
@@ -16,6 +17,12 @@ const game_time = document.querySelector('#game-time');
 let level_index = 0;
 let level = CONSTANT.LEVEL[level_index];
 
+const name_display = document.querySelector('#player-name-display');
+let timer = null;
+let timeElapsed = 0;
+
+
+
 const getGameInfo = () => JSON.parse(localStorage.getItem('game'));
 
 const initialize = () => {
@@ -23,12 +30,13 @@ const initialize = () => {
     applyTheme(theme);
 
     const game = getGameInfo();
+
+    // reset level name display on reload
+    level_index = 0;
+    level = CONSTANT.LEVEL[level_index];
+    document.querySelector('#btn-level').innerHTML = CONSTANT.LEVEL_NAME[level_index];
+
     showStartScreen();
-    //if (game) {
-    //    showGameScreen();
-    //} else {
-    //    showStartScreen();
-    //}
 
     const continueBtn = document.querySelector('#btn-continue');
     if (continueBtn) continueBtn.style.display = game ? 'grid' : 'none';
@@ -90,10 +98,13 @@ document.querySelector('#btn-level').addEventListener('click', (e) => {
 });
 
 document.querySelector('#btn-play').addEventListener('click', () => {
-    if(name_input.value.trim().length > 0){
-        showGameScreen();
-        // save game state to localStorage
-        localStorage.setItem('game', JSON.stringify({ level: level, started: true }));
+    const nameValue = name_input.value.trim();
+    if(nameValue.length > 0){
+        name_input.classList.add('input-confirm-anim');
+        setTimeout(() => {
+            startGame(false, nameValue);
+            name_input.classList.remove('input-confirm-anim');
+        }, 500);
     } else {
         name_input.classList.add('input-err');
         setTimeout(() => {
@@ -104,7 +115,7 @@ document.querySelector('#btn-play').addEventListener('click', () => {
 });
 
 document.querySelector('#btn-continue').addEventListener('click', () => {
-    showGameScreen();
+    startGame(true); // isContinue = true so it restores saved time/level
 });
 
 // handle theme toggle
@@ -128,16 +139,131 @@ document.querySelectorAll('.theme-opt').forEach(option => {
     });
 });
 
+const startGame = (isContinue = false, providedName = null) => {
+    const savedGame = getGameInfo();
+    let finalName = "";
+
+    // level timer and name handling
+    if (isContinue && savedGame) {
+        finalName = localStorage.getItem('player_name') || 'Guest';
+        
+        level_index = savedGame.level_index;
+        level = savedGame.level;                // restore what was saved 
+        timeElapsed = savedGame.timeElapsed;
+        console.log("Continuing as:", finalName);
+    } else {
+        finalName = providedName || name_input.value.trim() || "Guest";
+        timeElapsed = 0;
+
+        localStorage.setItem('player_name', finalName);
+        console.log("New game started for:", finalName);
+    }
+
+    // update displays
+    name_display.innerHTML = finalName;
+    game_level.innerHTML = CONSTANT.LEVEL_NAME[level_index];
+    
+    if (timer) clearInterval(timer);
+    startTimer();
+
+    showGameScreen();
+
+    // save the state
+    localStorage.setItem('game', JSON.stringify({ 
+        level: level, 
+        level_index: level_index,
+        timeElapsed: timeElapsed,
+        started: true 
+    }));
+}
+
+const startTimer = () => {
+    timer = setInterval(() => {
+        timeElapsed++;
+        
+        const minutes = Math.floor(timeElapsed / 60);
+        const seconds = timeElapsed % 60;
+        game_time.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // save only time progress to the existing game object
+        const currentGame = getGameInfo();
+        if (currentGame) {
+            currentGame.timeElapsed = timeElapsed;
+            localStorage.setItem('game', JSON.stringify(currentGame));
+        }
+    }, 1000);
+};
+
 // show screen methods
 const showStartScreen = () => {
     start_screen.classList.add('active');
+    game_screen.classList.remove('active');
+    pause_screen.classList.remove('active');
     document.querySelector('.main-game').classList.remove('active');
+
+    name_input.value = "";
+    
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
+    }
+    game_time.innerHTML = '00:00';
 };
 
 const showGameScreen = () => {
     start_screen.classList.remove('active');
     document.querySelector('.main-game').classList.add('active');
 };
+
+document.querySelector('#btn-pause').addEventListener('click', () => {
+    // stop the interval
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
+    }
+
+    // update the stats in the pause screenn
+    document.querySelector('#pause-timer-display').innerHTML = game_time.innerHTML;
+    document.querySelector('#pause-level-display').innerHTML = CONSTANT.LEVEL_NAME[level_index];
+    
+    // show pause screen
+    pause_screen.classList.add('active');
+});
+
+// handle resume
+document.querySelector('#btn-resume').addEventListener('click', () => {
+    const pauseScreen = document.querySelector('#pause-screen');
+    pauseScreen.classList.add('exit-anim');
+
+    setTimeout(() => {
+        pauseScreen.classList.remove('active', 'exit-anim');
+        startTimer();
+    }, 300);
+});
+
+// handle quit to menu
+document.querySelector('#btn-quit').addEventListener('click', () => {
+    pause_screen.classList.remove('active');
+    showStartScreen();
+});
+
+// side pop up theme
+const btnThemePause = document.querySelector('#btn-theme-pause');
+const themePopup = document.querySelector('#theme-popup');
+
+if (btnThemePause) {
+    btnThemePause.addEventListener('click', (e) => {
+        e.stopPropagation(); 
+        themePopup.classList.toggle('active');
+    });
+}
+
+// close when clicking anywhere else
+document.addEventListener('click', (e) => {
+    if (themePopup && !themePopup.contains(e.target)) {
+        themePopup.classList.remove('active');
+    }
+});
 
 // Setters
 const setPlayerName = (name) => localStorage.setItem('player_name', name);

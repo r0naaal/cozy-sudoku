@@ -38,7 +38,7 @@
                 <!-- start header -->
                 <header class="start-header">
                     <div class="header-left">
-                        <h1 class="logo">SUDOKU</h1>
+                        <h1 class="os-title-header">SUDOKU.EXE</h1>
                     </div>
 
                     <div class="header-right">
@@ -59,13 +59,40 @@
                     </div>
                 </header>
                 <!-- end header -->
-                <div class="start-input-box">
-                    <input type="text" placeholder="Your name" maxlength="8" class="input-name" id="input-name">
-                    <div class="btn" id="btn-level">Easy</div>
-                    <div class="btn" id="btn-continue">Continue</div>
-                    <div class="btn btn-blue" id="btn-play">New game</div>
+
+                <div class="desktop-icons">
+                    <div class="icon-item">
+                        <i class='bx bx-folder-zip'></i>
+                        <span class="icon-label">MY_GAMES</span>
+                    </div>
+                    <div class="icon-item">
+                        <i class='bx bx-file'></i>
+                        <span class="icon-label">README.TXT</span>
+                    </div>
+                    <div class="icon-item">
+                        <i class='bx bx-help-circle'></i>
+                        <span class="icon-text">HELP.HLP</span>
+                    </div>
                 </div>
-                
+
+                <div class="os-window start-window">
+                    <div class="os-header">
+                        <div class="os-buttons">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="os-title">USER_LOGIN</div>
+                    </div>
+                    <div class="os-content">
+                        <div class="start-input-box">
+                            <input type="text" placeholder="Your name" maxlength="5" class="input-name" id="input-name">
+                            <div class="btn" id="btn-level">Easy</div>
+                            <div class="btn" id="btn-continue">Continue</div>
+                            <div class="btn btn-blue" id="btn-play">New game</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- end start screen -->
 
@@ -82,25 +109,15 @@
                         <div class="status-item">DIFFICULTY: <span id="game-level">EASY</span></div>
                         <div class="status-item">TIME: <span id="game-time">00:00</span></div>
                         <button class="icon-btn" id="btn-pause"><i class="bx bx-pause"></i></button>
+                        <div class="player-info">
+                            <span>Player: </span>
+                            <span id="player-name-display">Bella</span>
+                        </div>
                     </div>
 
                     <div class="header-right">
-                        <button class="pixel-btn">NEW GAME</button>
+                        <button class="pixel-btn" id="btn-new-game-header">NEW GAME</button>
                         <button class="pixel-btn">SOLVE</button>
-                        <div class="theme-dropdown">
-                            <button class="pixel-btn" id="theme-toggle">Theme ▼</button>
-                            <div class="theme-menu" id="theme-menu">
-                                <div class="theme-opt" data-theme="light">Latte (Default)</div>
-                                <div class="theme-opt" data-theme="dark">Mocha</div>
-                                <div class="theme-opt" data-theme="blueberry">Blueberry</div>
-                                <div class="theme-opt" data-theme="sage">Sage</div>
-                                <div class="theme-opt" data-theme="matcha">Matcha</div>
-                                <div class="theme-opt" data-theme="pink">Strawberry</div>
-                                <div class="theme-opt" data-theme="honey">Honey</div>
-                                <div class="theme-opt" data-theme="lavender">Lavender</div>
-                                <div class="theme-opt" data-theme="polar">Polar</div>
-                            </div>
-                        </div>
                     </div>
                 </header>
                 <!-- end header -->
@@ -109,14 +126,20 @@
                 <div class="game-content-wrapper">
                     <!-- start left panel -->
                     <aside class="side-panel music-panel">
-                        <div class="panel-label">MUSIC</div>
-                        <div class="music-panel-controls">
-                            <div class="cat-display">🐱</div>
-                            <div class="music-controls">
-                                <button class="mini-btn"><i class='bx bx-skip-previous'></i></button>
-                                <button class="mini-btn"><i class='bx bx-pause'></i></button>
-                                <button class="mini-btn"><i class='bx bx-skip-next'></i></button>
-                            </div>
+                        <div class="music-header">NOW PLAYING</div>
+                        <div class="track-info">
+                            <span class="music-icon"><i class='bx bx-music'></i></span>
+                            <marquee behavior="scroll" direction="left" id="current-track">lo-fi beats to relax/study to</marquee>
+                        </div>
+
+                        <div class="music-progress-container">
+                            <div class="music-progress-bar"></div>
+                        </div>
+                        
+                        <div class="music-controls">
+                            <button class="mini-btn"><i class='bx bx-skip-previous'></i></button>
+                            <button class="mini-btn"><i class='bx bx-pause'></i></button>
+                            <button class="mini-btn"><i class='bx bx-skip-next'></i></button>
                         </div>
                     </aside>
                     <!-- end left panel -->
@@ -226,6 +249,50 @@
                 <!-- end game content wrapper -->
             </div>
             <!-- end game screen -->
+
+            <!-- start pause screen -->
+            <div class="pause-screen" id="pause-screen">
+                <div class="os-window">
+                    <div class="os-header">
+                        <div class="os-buttons">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                        </div>
+                        <div class="os-title">SYSTEM PAUSED</div>
+                    </div>
+
+                    <div class="os-content">
+                        <h2 class="pause-status">Taking a break?</h2>
+                        <div class="pause-stats">
+                            <p>Time: <span id="pause-timer-display">00:00</span></p>
+                            <p>Level: <span id="pause-level-display">Easy</span></p>
+                        </div>
+                        <button class="btn btn-blue btn-hero" id="btn-resume">RESUME</button>
+                        
+                        <div class="pause-grid">
+                            <button class="btn" id="btn-new-game-pause">NEW</button>
+                            <button class="btn" id="btn-quit">QUIT</button>
+
+                            <div class="theme-menu-container">
+                                <button class="btn btn-theme-toggle" id="btn-theme-pause">THEME</button>
+                                <div class="theme-popup" id="theme-popup">
+                                    <div class="theme-opt" data-theme="light">Latte (Default)</div>
+                                    <div class="theme-opt" data-theme="dark">Mocha</div>
+                                    <div class="theme-opt" data-theme="blueberry">Blueberry</div>
+                                    <div class="theme-opt" data-theme="sage">Sage</div>
+                                    <div class="theme-opt" data-theme="matcha">Matcha</div>
+                                    <div class="theme-opt" data-theme="pink">Strawberry</div>
+                                    <div class="theme-opt" data-theme="honey">Honey</div>
+                                    <div class="theme-opt" data-theme="lavender">Lavender</div>
+                                    <div class="theme-opt" data-theme="polar">Polar</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end pause screen -->
         </div>
     </div>
     <!-- end main -->
